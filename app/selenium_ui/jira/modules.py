@@ -7,7 +7,6 @@ from selenium_ui.jira.pages.pages import Login, PopupManager, Issue, Project, Se
 
 from util.api.jira_clients import JiraRestClient
 from util.conf import JIRA_SETTINGS
-from selenium.common.exceptions import TimeoutException
 
 client = JiraRestClient(JIRA_SETTINGS.server_url, JIRA_SETTINGS.admin_login, JIRA_SETTINGS.admin_password)
 rte_status = client.check_rte_status()
@@ -152,57 +151,6 @@ def edit_issue(webdriver, datasets):
         sub_measure()
     measure()
 
-def estimate_open_poker(webdriver, datasets):
-    issue_page = Issue(webdriver, issue_id=datasets['issue_id'])
-
-    @print_timing("estimate_open_poker")
-    def measure():
-
-        # in case issue were already estimated - try to click on re-estimate button (if exists)
-        # @print_timing("selenium_estimate_open_poker:re_estimate")
-        # def sub_measure():
-        try:
-            issue_page.click_re_estimate()
-        except TimeoutException:
-            pass
-        # sub_measure()
-
-        try:
-            issue_page.click_re_estimate()
-        except TimeoutException:
-            pass
-
-        try:
-            issue_page.click_re_estimate()
-        except TimeoutException:
-            pass
-
-        @print_timing("selenium_estimate_open_poker:start")
-        def sub_measure():
-            # issue_page.go_to_edit_issue()
-            # issue_page.go_to()
-            # issue_page.wait_for_page_loaded()
-            issue_page.start_open_poker_session()  # Start session
-        sub_measure()
-
-        issue_page.select_op_estimate("3")  # select estimate
-
-        @print_timing("selenium_save_comment:submit_estimate")
-        def sub_measure():
-            issue_page.finish_open_poker_session()  # Submit estimate
-        sub_measure()
-
-        @print_timing("selenium_save_comment:apply_final_estimate")
-        def sub_measure():
-            issue_page.select_final_estimate("1")  # select estimate
-            issue_page.apply_estimate()  # Submit estimate
-        sub_measure()
-
-        # @print_timing("selenium_save_comment:re_estimate")
-        # def sub_measure():
-        #     issue_page.click_re_estimate()
-        # sub_measure()
-    measure()
 
 def save_comment(webdriver, datasets):
     issue_page = Issue(webdriver, issue_id=datasets['issue_id'])

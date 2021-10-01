@@ -1,7 +1,6 @@
-from typing import Any
-
 from selenium.webdriver.common.by import By
 from util.conf import JIRA_SETTINGS
+
 
 class PopupLocators:
     default_popup = '.aui-message .icon-close'
@@ -124,16 +123,6 @@ class IssueLocators:
     edit_comment_text_field_RTE = (By.XPATH, "//div[textarea[@id='comment']]//iframe")
     edit_comment_text_field = (By.XPATH, "//textarea[@id='comment']")
 
-    # Open Poker locator
-    planning_poker_wrap = (By.ID, 'planning-poker')
-    start_estimate = (By.XPATH, "//*[@id='planning-poker']/div[2]/div/form/div[2]/input[3]")
-    select_estimate = (By.XPATH, "//select[@name='estimationGradeId']")
-    finish_estimate = (By.XPATH, "//*[@id='planning-poker']/div[2]/form/div[2]/input[2]")
-    op_grade = (By.CLASS_NAME, "open-poker-estimate-grade")
-    final_estimate = (By.XPATH, "//select[@name='finalEstimateId']")
-    apply_op_estimate = (By.XPATH, "//*[@id='planning-poker']/div[2]/form/div[2]/p/input[4]")
-    re_estimate_form = (By.CLASS_NAME, "open-poker-re-estimate-form")
-    re_estimate = (By.XPATH, "//*[@id='planning-poker']/div[2]/div/div/div/input")
 
 class ProjectLocators:
 
