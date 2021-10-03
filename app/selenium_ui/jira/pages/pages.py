@@ -1,4 +1,5 @@
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import Select
 from selenium_ui.conftest import retry
 import time
 import random
@@ -185,6 +186,28 @@ class Issue(BasePage):
         self.get_element(IssueLocators.edit_comment_add_comment_button).click()
         self.wait_until_visible(IssueLocators.issue_title)
 
+    def start_open_poker_session(self):
+        # self.go_to_url(self.page_url)
+        # self.execute_script("arguments[0].scrollIntoView();", IssueLocators.start_estimate)
+        self.wait_until_visible(IssueLocators.start_estimate)
+        self.get_element(IssueLocators.start_estimate).click()
+
+    def select_op_estimate(self, estimate=1):
+        Select(self.get_element(IssueLocators.select_estimate)).select_by_visible_text(estimate)
+
+    def finish_open_poker_session(self):
+        self.get_element(IssueLocators.finish_estimate).click()
+        self.wait_until_visible(IssueLocators.op_grade)
+
+    def select_final_estimate(self, estimate="1"):
+        Select(self.get_element(IssueLocators.final_estimate)).select_by_visible_text(estimate)
+
+    def apply_estimate(self):
+        self.get_element(IssueLocators.apply_op_estimate).click()
+
+    def click_re_estimate(self):
+        self.wait_until_visible(IssueLocators.re_estimate_form)
+        self.get_element(IssueLocators.re_estimate).click()
 
 class Project(BasePage):
     page_loaded_selector = ProjectLocators.project_summary_property_column
